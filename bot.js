@@ -7,6 +7,10 @@ const { Routes } = require('discord-api-types/v9');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 require('./logging');
 
+const express = require("express");
+const app = express();
+
+
 ////////////////////////////////////////////////////////////////////////////////
 //////// CONFIG ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -386,3 +390,6 @@ async function loadSlashCommands (clientId, guildId) {
 client.login(botConfig.bot.token);
 
 /*global log, guild*/
+
+// necessary for passing the digital ocean healthchecks, but there are no routes
+app.listen(8080, () => console.log("Listening on port 8080 .... "));
