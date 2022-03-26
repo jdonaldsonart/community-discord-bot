@@ -1,0 +1,89 @@
+const store = require('data-store');
+const configStore = new store({ path: __dirname+'/../CONFIG.json' });
+
+let channelsList = configStore.get('config.threadFromImageChannels');
+
+if (!channelsList || channelsList.length == 0) log({module: 'threads-only'}, 'no threads only channels are defined');
+else  {
+
+	//when a message is sent in a threadFromImageChannels channel
+	new Module('threads-from-images', 'message', { channel: CONFIG.threadFromImageChannels }, function (message) {
+		//if there is no attachment
+		if (message.attachments.size <= 0) {
+
+			//if the message was an image url, thread it
+			if (/^(http|https):\/\/.*\.(png|jpg|jpeg)$/i.test(message.content)) {
+				newThreadFromImage(message);
+				return log('\timage url posted');
+			}
+
+			//if the message is an instagram, reddit or twitter url, thread it
+			if (/^(http|https):\/\/(www\.)?(instagram|twitter|reddit)\.com/i.test(message.content)) {
+				newThreadFromImage(message);
+				return  log('\tsocial url posted');
+			}	
+		}
+
+		//there are attachments
+		else {
+			console.log("this message has an attachment");
+			
+			var att = message.attachments.first();
+
+			if (att.width && att.height) {
+				newThreadFromImage(message);
+
+				return log('\tmessage has attached images');
+			}
+			
+		}
+
+		console.log('posted in thread from image channel', message.interaction);
+
+
+	});
+
+	/*new Module('thread archive', 'message', {filter: /^!deletethread$/i}, function (message) {
+		
+	});*/
+}
+
+function newThreadFromImage(message) {
+	message.startThread({
+		name: title(message.author.username, true) + ' ' + title(message.channel.name),
+		autoArchiveDuration: 60 * 24 ,//minutes
+		//reason: 'poopoo'
+	}).then(newThread => {
+		newThread.send('Hey! I started a thread for you! If you don\'t like it.. tough!')
+			.then(botMessage => {
+				setTimeout(e => {
+					try {
+						botMessage.delete().catch(e => console.log('failed to delete'))}
+					catch (e) {console.log('failed to delete thread notice')}
+				}, 1000 * 60 );
+			});
+	});
+}
+
+function title(string, plural) {
+     let newString = string.charAt(0).toUpperCase() + string.slice(1);
+    
+    if (plural) newString += "'";
+    if (plural && string.slice(-1) !== 's') newString += "s";
+  
+    return newString;
+}
+
+/*
+	//loop through and delete them
+    message.channel.messages.fetch({ limit: messagesToDelete })
+	    .then(messages => {
+	    	messages.forEach(m => {
+	    		log('deleting message:',m.content);
+	    		m.delete();
+	    	});
+	    })
+		.catch(() => {
+			react(message, 'x_');
+			throw new Error('failed to fetch messages');
+		});*/
