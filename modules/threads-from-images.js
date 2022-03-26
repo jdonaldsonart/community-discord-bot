@@ -1,13 +1,10 @@
-const store = require('data-store');
-const configStore = new store({ path: __dirname+'/../CONFIG.json' });
+const botConfig = require('../config/index.js');
 
-let channelsList = configStore.get('config.threadFromImageChannels');
-
-if (!channelsList || channelsList.length == 0) log({module: 'threads-only'}, 'no threads only channels are defined');
-else  {
-
+if (!botConfig.bot.threadFromImageChannels || botConfig.bot.threadFromImageChannels.length == 0) {
+	log({ module: 'threads-from-images' }, 'no "threads-from-images" only channels are defined');
+} else {
 	//when a message is sent in a threadFromImageChannels channel
-	new Module('threads-from-images', 'message', { channel: CONFIG.threadFromImageChannels }, function (message) {
+	new Module('threads-from-images', 'message', { channel: botConfig.bot.threadFromImageChannels }, function (message) {
 		//if there is no attachment
 		if (message.attachments.size <= 0) {
 

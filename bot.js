@@ -11,6 +11,8 @@ require('./logging');
 //////// CONFIG ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
+const botConfig = require('./config/index.js');
+console.log(botConfig)
 const Store = require('data-store');
 const store = new Store({ path: __dirname+'/CONFIG.json' });
 const CONFIG = Object.assign({},store.get('config'));
@@ -23,8 +25,8 @@ global.CONFIG = CONFIG;
 global.CONFIGSTORE = store;
 
 //make sure token is configured
-if (!CONFIG.token || CONFIG.token == 'PASTE YOUR TOKEN HERE' || CONFIG.token == '') {
-	console.log('toke',CONFIG.token)
+if (typeof botConfig.bot.token == 'undefined' || botConfig.bot.token == '') {
+	// console.log('toke',CONFIG.token)
 	try {
 		console.log(fs.readFileSync(__dirname+'/intro.txt','utf-8'));
 		
@@ -33,7 +35,7 @@ if (!CONFIG.token || CONFIG.token == 'PASTE YOUR TOKEN HERE' || CONFIG.token == 
 		console.error(err);
 	}
 
-	store.set('config.token', 'PASTE YOUR TOKEN HERE');
+	// store.set('config.token', 'PASTE YOUR TOKEN HERE');
 
 	process.exit();
 }
@@ -340,12 +342,6 @@ client.once('ready', () => {
 	//store guild info
 	global.guild = client.guilds.cache.first();
 
-	//if bot name hasn't been set yet, store it
-	if (!store.get('config').botName) {
-		store.set('config.botName',client.user.username);
-		log('set bots name to',client.user.username);
-	}
-
 	log('connected to',guild.name,'as',client.user.username);
 
 	console.log()
@@ -357,7 +353,7 @@ client.once('ready', () => {
 //////// COMMANDS //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-const rest = new REST({ version: '9' }).setToken(CONFIG.token);
+const rest = new REST({ version: '9' }).setToken(botConfig.bot.token);
 
 async function loadSlashCommands (clientId, guildId) {
 	try {
@@ -387,6 +383,6 @@ async function loadSlashCommands (clientId, guildId) {
 
 
 //log bot in
-client.login(CONFIG.token);
+client.login(botConfig.bot.token);
 
 /*global log, guild*/

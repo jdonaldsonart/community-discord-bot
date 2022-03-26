@@ -1,4 +1,5 @@
 node_modules
 CONFIG.json
+CONFIG.json.old
 jokes.txt
 phrases.txt
