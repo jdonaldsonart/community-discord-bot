@@ -1,4 +1,4 @@
 node_modules
-/*.json
+CONFIG.json
 jokes.txt
 phrases.txt
