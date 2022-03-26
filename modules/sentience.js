@@ -4,7 +4,7 @@ new Module('hello', 'message', {filter: /\b(hello|hi|sup|how|yo|hey|soup|howdy|<
 	message.channel.send(pickRandom(greetings));
 });
 
-new Module('sustin', 'message', {filter: /\b(sustin)\b/i, pingBot: true}, function (message) {
+new Module('sustin', 'message', {filter: /\b(sustin)\b/i, pingBot: false}, function (message) {
 	react(message,pickRandom(['sus','sussy','sussiest']));
 });
 
