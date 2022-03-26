@@ -48,20 +48,26 @@ else  {
 	});*/
 }
 
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function newThreadFromImage(message) {
-	message.startThread({
-		name: title(message.author.username, true) + ' ' + title(message.channel.name),
-		autoArchiveDuration: 60 * 24 ,//minutes
-		//reason: 'poopoo'
-	}).then(newThread => {
-		newThread.send('Hey! I started a thread for you! If you don\'t like it.. tough!')
-			.then(botMessage => {
-				setTimeout(e => {
-					try {
-						botMessage.delete().catch(e => console.log('failed to delete'))}
-					catch (e) {console.log('failed to delete thread notice')}
-				}, 1000 * 60 );
-			});
+	sleep(3000).then(() => {
+		message.startThread({
+			name: title(message.author.username, true) + ' ' + title(message.channel.name),
+			autoArchiveDuration: 60 * 24 ,//minutes
+			//reason: 'poopoo'
+		}).then(newThread => {
+			newThread.send('Hey! I started a thread for you! If you don\'t like it.. tough!')
+				.then(botMessage => {
+					setTimeout(e => {
+						try {
+							botMessage.delete().catch(e => console.log('failed to delete'))}
+						catch (e) {console.log('failed to delete thread notice')}
+					}, 1000 * 60 );
+				});
+		});
 	});
 }
 
