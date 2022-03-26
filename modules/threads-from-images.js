@@ -79,17 +79,3 @@ function title(string, plural) {
   
     return newString;
 }
-
-/*
-	//loop through and delete them
-    message.channel.messages.fetch({ limit: messagesToDelete })
-	    .then(messages => {
-	    	messages.forEach(m => {
-	    		log('deleting message:',m.content);
-	    		m.delete();
-	    	});
-	    })
-		.catch(() => {
-			react(message, 'x_');
-			throw new Error('failed to fetch messages');
-		});*/

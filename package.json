@@ -1,13 +1,13 @@
 {
-  "name": "lospec-bot-discord",
+  "name": "community-discord-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A community bot for Justin Donaldson's discord community",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
     "profile": "node --prof bot.js"
   },
-  "author": "Lospec",
+  "author": "Josh Sawyer, Lospec",
   "dependencies": {
     "@discordjs/rest": "^0.1.0-canary.0",
     "data-store": "^4.0.3",
@@ -16,5 +16,9 @@
     "glob": "^7.1.6",
     "node-fetch": "^2.6.1"
   },
-  "license": "gpl-2.0"
+  "license": "gpl-2.0",
+  "engines" : { 
+    "npm" : ">=8.5.5",
+    "node" : ">=17.0.0"
+  }
 }
