@@ -4,7 +4,7 @@ const botConfig = require('../config/index.js');
 if (!botConfig.bot.noGifChannels || botConfig.bot.noGifChannels.length == 0) {
 	log({ module: 'no-gifs' }, 'no "no gifs" channels are defined');
 } else {
-	new Module('no-gifs', 'message', { channel: CONFIG.noGifChannels, stopOnMatch: false }, function (message) {
+	new Module('no-gifs', 'message', { channel: botConfig.bot.noGifChannels, stopOnMatch: false }, function (message) {
 
 		const channelName = '#' + message.channel.name;
 		const userName = '#' + message.author.username;
