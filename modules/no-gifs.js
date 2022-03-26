@@ -14,8 +14,10 @@ if (!botConfig.bot.noGifChannels || botConfig.bot.noGifChannels.length == 0) {
 
 			//if the message is from tenor.com
 			if (/^(http|https):\/\/.*(tenor.com|giphy.com).*$/i.test(message.content)) {
-				message.delete();
-				message.author.send("I deleted the gif you posted in " + channelName + " because I don't allow gifs in there! I'm tough that way!");
+				sleep(100).then(() => {
+					message.delete();
+					message.author.send("I deleted the gif you posted in " + channelName + " because I don't allow gifs in there! I'm tough that way! You might still be able to see it, but others cannot!");
+				});
 			}
 
 			//otherwise, delete it
@@ -23,4 +25,8 @@ if (!botConfig.bot.noGifChannels || botConfig.bot.noGifChannels.length == 0) {
 			// return;
 		}
 	});
+}
+
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
