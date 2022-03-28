@@ -52,7 +52,7 @@ function sleep(ms) {
 function newThreadFromImage(message) {
 	sleep(3000).then(() => {
 		message.startThread({
-			name: title(message.author.username, true) + ' ' + title(message.channel.name),
+			name: title(message.member.displayName, true) + ' ' + title(message.channel.name),
 			autoArchiveDuration: 60 * 24 ,//minutes
 			//reason: 'poopoo'
 		}).then(newThread => {
