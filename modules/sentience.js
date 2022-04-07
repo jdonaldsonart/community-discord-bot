@@ -5,11 +5,11 @@ new Module('hello', 'message', {filter: /\b(hello|hi|sup|how|yo|hey|soup|howdy|<
 });
 
 new Module('sustin', 'message', {filter: /\b(sustin)\b/i, pingBot: false}, function (message) {
-	react(message,pickRandom(['sus','sussy','sussiest']));
+	react(message,pickRandom(['SUS','sussy','sussiest']));
 });
 
 new Module('mean', 'message', {filter: /\b(bad|badbot|stupid|ugly|dumb|idiot|moron|butt|poop|worst)\b/i, pingBot: true}, function (message) {
-	react(message,pickRandom(['sus','sussy','sussiest']));
+	react(message,pickRandom(['SUS','sussy','sussiest']));
 });
 
 new Module('sentient', 'message', {filter: /\b(real|alive|conscious|aware|sentient)\b/i, pingBot: true}, function (message) {
