@@ -9,13 +9,13 @@ if (!botConfig.bot.threadFromImageChannels || botConfig.bot.threadFromImageChann
 		if (message.attachments.size <= 0) {
 
 			//if the message was an image url, thread it
-			if (/(http|https):\/\/.*\.(png|jpg|jpeg)/i.test(message.content)) {
+			if (/(.|\n)*(http|https):\/\/.*\.(png|jpg|jpeg)(.|\n)*/i.test(message.content)) {
 				newThreadFromImage(message);
 				return log('\timage url posted');
 			}
 
 			//if the message is an instagram, reddit or twitter url, thread it
-			else if (/(http|https):\/\/(www\.)?(instagram|twitter|reddit)\.com/i.test(message.content)) {
+			else if (/(.|\n)*(http|https):\/\/(www\.)?(instagram|twitter|reddit)\.com(.|\n)*/i.test(message.content)) {
 				newThreadFromImage(message);
 				return  log('\tsocial url posted');
 			}	
