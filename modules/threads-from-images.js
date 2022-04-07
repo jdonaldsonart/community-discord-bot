@@ -15,7 +15,7 @@ if (!botConfig.bot.threadFromImageChannels || botConfig.bot.threadFromImageChann
 			}
 
 			//if the message is an instagram, reddit or twitter url, thread it
-			if (/(http|https):\/\/(www\.)?(instagram|twitter|reddit)\.com/i.test(message.content)) {
+			else if (/(http|https):\/\/(www\.)?(instagram|twitter|reddit)\.com/i.test(message.content)) {
 				newThreadFromImage(message);
 				return  log('\tsocial url posted');
 			}	
